@@ -5,10 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -27,7 +24,7 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
-    public static ArrayList<String> findAll(String field) {
+    public static ArrayList<String> findAll(String field) { //field is the key
 
         // load data, if not already loaded
         loadData();
@@ -45,7 +42,8 @@ public class JobData {
         // Bonus mission: sort the results
         Collections.sort(values);
 
-        return values;
+        return values; //returns all values of a specific key
+                       // returns an arraylist type String
     }
 
     public static ArrayList<HashMap<String, String>> findAll() {
@@ -79,12 +77,12 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
-                jobs.add(row);
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                jobs.add(row); // adds the whole hashmap when you find the specific value
             }
         }
 
-        return jobs;
+        return jobs; //return the hashmap as an arraylist of the specific value entered
     }
 
     /**
@@ -98,8 +96,26 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+
+            for (Map.Entry<String, String> column : row.entrySet()) {
+                String aValue = column.getValue();
+
+
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    if(!jobs.contains(aValue)){
+                        jobs.add(row);
+
+                }
+
+            }
+        }
+
+    }
+
+        return jobs;
     }
 
     /**
