@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,13 +50,14 @@ public class TechJobs {
                     // Print list of skills, employers, etc
                     for (String item : results) {
                         System.out.println(item);
+
                     }
                 }
 
             } else { // choice is "search"
 
                 // How does the user want to search (e.g. by skill or employer)
-                String searchField = getUserSelection("Search by:", columnChoices);
+                String searchField = getUserSelection("Search by:", columnChoices); //search Field is key
 
                 // What is their search term?
                 System.out.println("\nSearch term:");
@@ -91,7 +93,7 @@ public class TechJobs {
 
             // Print available choices
             for (int j = 0; j < choiceKeys.length; j++) {
-                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
+                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));//Hashmapname.get(key) returns value
             }
 
             if (in.hasNextInt()) {
@@ -114,12 +116,31 @@ public class TechJobs {
 
         } while(!validChoice);
 
-        return choiceKeys[choiceIdx];
+        return choiceKeys[choiceIdx]; //returns the key
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+
+        for(HashMap<String, String> jobs : someJobs){ //looping an arraylist
+            String asterisks ="*****";
+            System.out.println("\n"+asterisks );
+
+            for(Map.Entry<String,String> job : jobs.entrySet()){
+                System.out.println(job.getKey()+": " + job.getValue());
+            }
+
+            System.out.println(asterisks );
+
+        }
+
+        if(someJobs.isEmpty()){
+            System.out.print("No Results");
+        }
+
+
+
+
     }
 }
